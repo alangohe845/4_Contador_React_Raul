@@ -38,11 +38,16 @@ function Cartas() {
     }
     const handleEliminar = (e) =>{
         let nombre = e.target.name;
-        nombre = nombre.slice(1,-1);
+        nombre = nombre.slice(1);
         let inf = [];
-        for(let i = 0; informacion.length;i++){
+        for(let i = 0; i<informacion.length;i++){
+            if(informacion[i].id !== nombre){
+                inf.push(informacion[i]);
+            }
             
+           
         }
+         setInformacion(inf);
     }
     return ( 
     <Container>
