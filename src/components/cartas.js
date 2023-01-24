@@ -37,7 +37,12 @@ function Cartas() {
         });
     }
     const handleEliminar = (e) =>{
-        console.log(e.target.name);
+        let nombre = e.target.name;
+        nombre = nombre.slice(1,-1);
+        let inf = [];
+        for(let i = 0; informacion.length;i++){
+            
+        }
     }
     return ( 
     <Container>
