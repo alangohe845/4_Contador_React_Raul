@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,15 +8,21 @@ import Form from 'react-bootstrap/Form';
 import { v4 as uuid } from 'uuid';
 
 function Cartas() {
+
     const initialState = {
         'id' : '',
         'nombre' : '',
         'direccion' : '',
         'telefono' : '',
     }
+    const btnActual = useRef(null);
     const [datos, setDatos] = useState(initialState);
     const{nombre,direccion,telefono} = datos;//Deconstruccion de datos 
     const[informacion, setInformacion] = useState([]);
+
+    useEffect(() => {
+        btnActual.disable.value = true;
+    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -38,11 +44,16 @@ function Cartas() {
     }
     const handleEliminar = (e) =>{
         let nombre = e.target.name;
-        nombre = nombre.slice(1,-1);
+        nombre = nombre.slice(1);
         let inf = [];
-        for(let i = 0; informacion.length;i++){
+        for(let i = 0; i<informacion.length;i++){
+            if(informacion[i].id !== nombre){
+                inf.push(informacion[i]);
+            }
             
+           
         }
+         setInformacion(inf);
     }
     return ( 
     <Container>
@@ -57,7 +68,7 @@ function Cartas() {
             <Card.Text>Direccion:{inf.direccion}</Card.Text>
             <Card.Text>Teléfono:{inf.telefono}</Card.Text>
             <Button name={'e'+inf.id} variant="danger" className="me-3" onClick={handleEliminar}>Eliminar</Button>
-            <Button name={'m'+inf.id} variant="info">Editar</Button>
+            <Button name={'m'+inf.id} variant="info" className='me-3'>Actualizar</Button>
             </Card.Body>
             </Card>
             </Col>
